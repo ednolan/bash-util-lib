@@ -27,7 +27,7 @@ function bash_util_persistent_map_insert() {
     local key="$2"
     shift 2
     local value="$@"
-    cat "$file" | jq --argjson json "\"$value\"" ". + {$key: \$json}" > "$file.tmp"
+    cat "$file" | jq --argjson json "\"$value\"" ". + {\"$key\": \$json}" > "$file.tmp"
     mv "$file.tmp" "$file"
 }
 
@@ -40,7 +40,7 @@ function bash_util_persistent_map_search() {
     if [[ $(cat "$file" | jq "has(\"$key\")") == "false" ]] ; then
         return 1
     fi
-    cat "$file" | jq --raw-output ".$key"
+    cat "$file" | jq --raw-output ".\"$key\""
 }
 
 function bash_util_persistent_map_delete() {
