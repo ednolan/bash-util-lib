@@ -17,7 +17,7 @@ function __bash_util_persistent_map_create() {
 
 function bash_util_persistent_map_insert() {
     [[ "$#" -ge 3 ]] || bash_util_log_fatal "wrong number of parameters"
-    [[ $(bash_util_check_executable_in_path jq) ]] || bash_util_log_fatal "jq not found"
+    bash_util_check_executable_in_path jq || bash_util_log_fatal "jq not found"
     local file="$1"
     if [[ ! -f "$file" ]] ; then
         __bash_util_persistent_map_create "$file"
@@ -33,7 +33,7 @@ function bash_util_persistent_map_insert() {
 
 function bash_util_persistent_map_search() {
     [[ "$#" -eq 2 ]] || bash_util_log_fatal "wrong number of parameters"
-    [[ $(bash_util_check_executable_in_path jq) ]] || bash_util_log_fatal "jq not found"
+    bash_util_check_executable_in_path jq || bash_util_log_fatal "jq not found"
     local file="$1"
     [[ $(__bash_util_persistent_map_is_valid "$file") ]] || bash_util_log_fatal "invalid $file"
     local key="$2"
@@ -45,7 +45,7 @@ function bash_util_persistent_map_search() {
 
 function bash_util_persistent_map_delete() {
     [[ "$#" -eq 2 ]] || bash_util_log_fatal "wrong number of parameters"
-    [[ $(bash_util_check_executable_in_path jq) ]] || bash_util_log_fatal "jq not found"
+    bash_util_check_executable_in_path jq || bash_util_log_fatal "jq not found"
     local file="$1"
     [[ $(__bash_util_persistent_map_is_valid "$file") ]] || bash_util_log_fatal "invalid $file"
     local key="$2"

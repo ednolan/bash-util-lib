@@ -22,5 +22,5 @@ function bash_util_check_min_bash_version() {
 function bash_util_check_executable_in_path() {
     [[ "$#" -eq 1 ]] || bash_util_log_fatal "wrong number of parameters"
     local executable="$1"
-    type -P "$executable"
+    bash -c "type -P $executable" >/dev/null
 }
