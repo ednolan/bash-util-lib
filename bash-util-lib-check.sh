@@ -24,3 +24,8 @@ function bash_util_check_executable_in_path() {
     local executable="$1"
     bash -c "type -P $executable" >/dev/null
 }
+
+function bash_util_check_script_sourced() {
+    # https://stackoverflow.com/a/2684300
+    [[ "${BASH_SOURCE[0]}" != "${0}" ]]
+}
